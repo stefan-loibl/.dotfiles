@@ -1,6 +1,9 @@
+local oil = require("oil")
+local util = require("oil.util")
+
 vim.keymap.set("n", "<C-k>", ":Oil %:p:h<CR>")
 
-require("oil").setup({
+oil.setup({
   -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
   -- Set to false if you still want to use netrw.
   default_file_explorer = true,
@@ -44,7 +47,30 @@ require("oil").setup({
   -- See :help oil-actions for a list of all available actions
   keymaps = {
     ["<CR>"] = "actions.select",
-    ["<C-l>"] = "actions.preview",
+    ["<C-l>"] = {
+      -- copied and adapted from here: https://github.com/stevearc/oil.nvim/blob/71c972fbd218723a3c15afcb70421f67340f5a6d/lua/oil/actions.lua#L72
+      callback = function()
+        local entry = oil.get_cursor_entry()
+        if not entry then
+          vim.notify("Could not find entry under cursor", vim.log.levels.ERROR)
+          return
+        end
+        local winid = util.get_preview_win()
+        if winid then
+          local cur_id = vim.w[winid].oil_entry_id
+          if entry.id == cur_id then
+            vim.api.nvim_win_close(winid, true)
+            if util.is_floating_win() then
+              local layout = require("oil.layout")
+              local win_opts = layout.get_fullscreen_win_opts()
+              vim.api.nvim_win_set_config(0, win_opts)
+            end
+            return
+          end
+        end
+        oil.open_preview { vertical = true, split = 'botright' }
+      end,
+    },
     ["<C-c>"] = "actions.close",
     ["<C-j>"] = "actions.refresh",
     ["<C-k>"] = "actions.parent",

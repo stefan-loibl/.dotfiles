@@ -13,6 +13,15 @@ telescope.setup {
   }
 }
 
+local find_files = function()
+  telescope_builtin.find_files {
+    find_command = { 'rg', '--files', '--iglob', '!.git', '--hidden' },
+    no_ignore = true,
+    previewer = false,
+  }
+end
+
+vim.keymap.set("n", "<leader>fj", find_files)
 vim.keymap.set("n", "<leader>ff", telescope_builtin.find_files)
 vim.keymap.set("n", "<leader>fg", telescope_builtin.live_grep)
 vim.keymap.set("n", "<leader>fb", telescope_builtin.buffers)

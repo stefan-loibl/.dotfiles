@@ -29,7 +29,7 @@ set signcolumn=yes
 set isfname+=@-@
 set cmdheight=2
 set updatetime=300
-set colorcolumn=80
+set colorcolumn=120
 set shortmess+=c
 set mouse=
 
@@ -127,6 +127,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'sainnhe/gruvbox-material'
 Plug 'frankaemika/ride-vim'
 Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
@@ -178,6 +179,16 @@ Plug 'NvChad/nvim-colorizer.lua'
 "Plug 'tris203/precognition.nvim'
 
 Plug 'epwalsh/obsidian.nvim'
+
+" Java
+Plug 'MunifTanjim/nui.nvim'
+Plug 'nvim-java/lua-async-await'
+Plug 'nvim-java/nvim-java-refactor'
+Plug 'nvim-java/nvim-java-core'
+Plug 'nvim-java/nvim-java-test'
+Plug 'nvim-java/nvim-java-dap'
+Plug 'nvim-java/nvim-java'
+Plug 'JavaHello/spring-boot.nvim'
 
 call plug#end()
 

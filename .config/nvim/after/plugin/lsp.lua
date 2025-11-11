@@ -1,10 +1,21 @@
+require('mason').setup{
+  PATH = "append"
+}
+require("mason-lspconfig").setup()
+require('java').setup()
+
+--require('spring_boot').setup()
+--local jdtls_config = {
+--  bundles = {}
+--}
+--vim.list_extend(jdtls_config.bundles, require("spring_boot").java_extensions())
+--require('spring_boot').init_lsp_commands()
+
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local telescope = require('telescope.builtin')
 local lspconfig = require('lspconfig')
 local configs = require('lspconfig.configs')
 local util = require('lspconfig.util')
-
-require('mason').setup()
 
 vim.filetype.add({
     extension = {
@@ -94,7 +105,24 @@ lspconfig.lua_ls.setup {
 --  },
 --}
 
-lspconfig.tsserver.setup{
+lspconfig.ts_ls.setup{
+  capabilities = capabilities,
+  on_attach = function()
+    configure()
+  end,
+  init_options = {
+    plugins = {
+      {
+        name = "@vue/typescript-plugin",
+        location = "/home/user/.nvm/versions/node/v22.8.0/lib/node_modules/@vue/language-server",
+        languages = {"vue"},
+      },
+    },
+  },
+  filetypes = { 'typescript', 'javascript', 'vue', },
+}
+
+lspconfig.volar.setup{
   capabilities = capabilities,
   on_attach = function()
     configure()
@@ -110,6 +138,8 @@ lspconfig.pyright.setup{
   end,
 }
 
+lspconfig.ruff.setup{}
+
 lspconfig.clangd.setup{
   capabilities = capabilities,
   on_attach = function()
@@ -124,7 +154,30 @@ lspconfig.gopls.setup{
   end,
 }
 
+configs.golangci_lint_ls = {
+  default_config = {
+    cmd = {'golangci-lint-langserver'},
+    root_dir = lspconfig.util.root_pattern('go.mod'),
+    init_options = {
+        command = { "golangci-lint", "run", "--output.json.path", "stdout", "--show-stats=false", "--issues-exit-code=1" },
+    },
+  }
+}
+lspconfig.golangci_lint_ls.setup{
+  capabilities = capabilities,
+  on_attach = function()
+    configure()
+  end,
+}
+
 lspconfig.templ.setup{
+  capabilities = capabilities,
+  on_attach = function()
+    configure()
+  end,
+}
+
+lspconfig.lemminx.setup{
   capabilities = capabilities,
   on_attach = function()
     configure()
@@ -157,7 +210,7 @@ lspconfig.tailwindcss.setup{
   on_attach = function()
     configure()
   end,
-  filetypes = { "html", "templ" },
+  filetypes = { "html", "templ", "vue" },
 }
 
 lspconfig.html.setup({
@@ -174,6 +227,94 @@ lspconfig.htmx.setup{
     configure()
   end,
   filetypes = { "html", "templ" },
+}
+
+lspconfig.yamlls.setup{
+  capabilities = capabilities,
+  on_attach = function()
+    configure()
+  end,
+  settings = {
+    yaml = {
+      customTags = {
+        "!And scalar",
+        "!And mapping",
+        "!And sequence",
+        "!If scalar",
+        "!If mapping",
+        "!If sequence",
+        "!Not scalar",
+        "!Not mapping",
+        "!Not sequence",
+        "!Equals scalar",
+        "!Equals mapping",
+        "!Equals sequence",
+        "!Or scalar",
+        "!Or mapping",
+        "!Or sequence",
+        "!FindInMap scalar",
+        "!FindInMap mappping",
+        "!FindInMap sequence",
+        "!Base64 scalar",
+        "!Base64 mapping",
+        "!Base64 sequence",
+        "!Cidr scalar",
+        "!Cidr mapping",
+        "!Cidr sequence",
+        "!Ref scalar",
+        "!Ref mapping",
+        "!Ref sequence",
+        "!Sub scalar",
+        "!Sub mapping",
+        "!Sub sequence",
+        "!GetAtt scalar",
+        "!GetAtt mapping",
+        "!GetAtt sequence",
+        "!GetAZs scalar",
+        "!GetAZs mapping",
+        "!GetAZs sequence",
+        "!ImportValue scalar",
+        "!ImportValue mapping",
+        "!ImportValue sequence",
+        "!Select scalar",
+        "!Select mapping",
+        "!Select sequence",
+        "!Split scalar",
+        "!Split mapping",
+        "!Split sequence",
+        "!Join scalar",
+        "!Join mapping",
+        "!Join sequence",
+        "!Condition scalar",
+        "!Condition mapping",
+        "!Condition sequence"
+      },
+    },
+  },
+}
+
+lspconfig.jdtls.setup{
+  capabilities = capabilities,
+  on_attach = function()
+    configure()
+  end,
+  --init_options = {
+  --  bundles = require("spring_boot").java_extensions(),
+  --},
+}
+
+lspconfig.kotlin_language_server.setup{
+  capabilities = capabilities,
+  on_attach = function()
+    configure()
+  end,
+}
+
+lspconfig.gradle_ls.setup{
+  capabilities = capabilities,
+  on_attach = function()
+    configure()
+  end,
 }
 
 --configs.lf = {

@@ -51,6 +51,17 @@ dap.configurations.lf = {
   }
 }
 
+dap.configurations.java = {
+  {
+    name = 'Attach to server',
+    type = 'java',
+    request = 'attach',
+    hostName = 'localhost',
+    port = '5005',
+    processId = require("dap.utils").pick_process,
+  },
+}
+
 ---- Go
 --require('dap-go').setup()
 --
