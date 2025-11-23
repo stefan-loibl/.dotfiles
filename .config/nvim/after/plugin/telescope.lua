@@ -2,16 +2,16 @@ local telescope = require("telescope")
 local telescope_builtin = require("telescope.builtin")
 local telescope_themes = require("telescope.themes")
 
-telescope.load_extension("ui-select")
-telescope.setup {
-  extensions = {
-    ["ui-select"] = {
-      telescope_themes.get_dropdown {
-        -- even more opts
-      }
-    }
-  }
-}
+--telescope.load_extension("ui-select")
+--telescope.setup {
+--  extensions = {
+--    ["ui-select"] = {
+--      telescope_themes.get_dropdown {
+--        -- even more opts
+--      }
+--    }
+--  }
+--}
 
 local find_files = function()
   telescope_builtin.find_files {
