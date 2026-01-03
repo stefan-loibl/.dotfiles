@@ -1,7 +1,6 @@
 require('mason').setup{
 --  PATH = "append"
 }
-require("mason-lspconfig").setup()
 --require('java').setup()
 
 --require('spring_boot').setup()
