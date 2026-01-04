@@ -78,32 +78,14 @@ POWERLEVEL9K_MODE="Iosevka Term Semibold"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-vi-mode zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(vi-mode zsh-autosuggestions zsh-syntax-highlighting asdf)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-[ -f "/home/loib_st/.ghcup/env" ] && source "/home/loib_st/.ghcup/env"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-export E2_CONFIG=/home/loib_st/.config/e2/e2.conf
 export EDITOR='nvim'
-export NODE_EXTRA_CA_CERTS="/home/loib_st/certs/franka-ca.crt"
-export PATH=~/.npm-global/bin:$PATH
-export PATH=$PATH:/usr/local/go/bin:~/go/bin
-export PATH=~/glibc/glibc-2.32-install/bin:$PATH
-
-# You may need to manually set your language environment
 export LANG=en_US.UTF-8
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-ssh-add ~/.ssh/master-key >/dev/null 2>&1
 
 source ~/.config/zsh/alias
 source ~/.config/zsh/bindkeys
@@ -111,12 +93,6 @@ source ~/.config/zsh/bindkeys
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-
-# Load Angular CLI autocompletion.
-source <(ng completion script)
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-eval "$(zoxide init zsh)"
-
-eval "$(thefuck --alias)"
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#eval "$(zoxide init zsh)"
+#eval "$(thefuck --alias)"
