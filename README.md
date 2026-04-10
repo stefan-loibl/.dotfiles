@@ -2,9 +2,11 @@
 
 ## Setup
 
+Ensure ssh key is properly configured.
+
 ```
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-git clone --bare https://github.com/stefan-loibl/.dotfiles $HOME/.cfg
+git clone --bare git@github.com:stefan-loibl/.dotfiles.git $HOME/.cfg
 config checkout
 ```
 
